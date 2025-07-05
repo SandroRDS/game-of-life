@@ -1,7 +1,4 @@
-import {
-  ClockAlreadyStartedError,
-  ClockAlreadyStoppedError
-} from "./clock.errors";
+import { ClockAlreadyStartedError, ClockAlreadyStoppedError } from "./clock.errors";
 import { intervalDurationSchema } from "./clock.schemas";
 
 class Clock {
