@@ -25,8 +25,8 @@ class Clock {
     this.intervalId = undefined;
   }
 
-  public setIntervalDuration(intervalDuration: number) {
-    const validatedIntervalDuration = intervalDurationSchema.parse(intervalDuration);
+  public setIntervalDuration(intervalDurationInMs: number) {
+    const validatedIntervalDuration = intervalDurationSchema.parse(intervalDurationInMs);
 
     if (this.isRunning()) {
       this.stop();
