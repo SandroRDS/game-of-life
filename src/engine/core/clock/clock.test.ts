@@ -10,7 +10,7 @@ import {
 
 import { ZodError } from 'zod';
 
-import Clock from "./clock.entity";
+import Clock from './clock.entity';
 import { ClockAlreadyStartedError, ClockAlreadyStoppedError } from './clock.errors';
 
 describe('testing Clock start method', () => {

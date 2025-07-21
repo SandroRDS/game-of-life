@@ -1,11 +1,12 @@
-import useGame from "./engine/hooks/useGame";
+import useGame from './engine/hooks/useGame';
 
 function App() {
   const game = useGame();
 
+  if (!game.gameIsReady) return <p>Carregando...</p>;
+
   return (
     <>
-      <p className="text-lg">Hello World!</p>
       <p>{game.currentTime.hours}:{game.currentTime.minutes}:{game.currentTime.seconds.toString().padStart(2, '0')}</p>
       <div className="flex gap-1">
         {!game.isRunning ? (

@@ -1,5 +1,5 @@
-import { ClockAlreadyStartedError, ClockAlreadyStoppedError } from "./clock.errors";
-import { intervalDurationSchema } from "./clock.schemas";
+import { ClockAlreadyStartedError, ClockAlreadyStoppedError } from './clock.errors';
+import { intervalDurationSchema } from './clock.schemas';
 
 class Clock {
   private static readonly DEFAULT_INTERVAL_DURATION = 1000;

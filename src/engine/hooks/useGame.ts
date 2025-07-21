@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
-import Game from "../core/game/game.entity";
+import { useEffect, useState } from 'react';
+import Game from '../core/game/game.entity';
 
 const useGame = () => {
+  const [game, setGame] = useState<Game>();
   const [isRunning, setIsRunning] = useState(false);
   const [currentTime, setCurrentTime] = useState({
     hours: 0,
@@ -14,13 +15,20 @@ const useGame = () => {
     setCurrentTime(game.getCurrentTime());
   };
 
-  const game = useMemo(() => new Game(updateUiStatesCallback), []);
+  const instantiateGame = async () => {
+    setGame(new Game(updateUiStatesCallback));
+  };
+
+  useEffect(() => {
+    instantiateGame();
+  }, []);
 
   return {
+    gameIsReady: !!game,
     isRunning,
     currentTime,
-    start: () => game.start(),
-    stop: () => game.stop(),
+    start: () => game?.start(),
+    stop: () => game?.stop(),
   };
 };
 
