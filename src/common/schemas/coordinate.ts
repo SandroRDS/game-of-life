@@ -1,8 +1,9 @@
 import z from 'zod';
 
-const coordinateSchema = z.object({
-  x: z.number().int().gte(0),
-  y: z.number().int().gte(0),
-});
+const coordinateSchema = z
+  .object({
+    x: z.number().int().positive(),
+    y: z.number().int().positive(),
+  });
 
 export default coordinateSchema;

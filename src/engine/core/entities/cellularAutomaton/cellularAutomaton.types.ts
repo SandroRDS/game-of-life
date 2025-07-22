@@ -1,4 +1,4 @@
-export type CellularAutomatonOptions = {
-    horizontalLength: number;
-    verticalLength: number;
+export type CellularAutomatonSize = {
+    horizontal: number;
+    vertical: number;
 }

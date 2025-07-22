@@ -1,6 +1,6 @@
 import z from 'zod';
 
-export const cellularAutomatonOptionsSchema = z.object({
-  horizontalLength: z.number().int().positive(),
-  verticalLength: z.number().int().positive(),
+export const cellularAutomatonSizeSchema = z.object({
+  horizontal: z.number().int().positive(),
+  vertical: z.number().int().positive(),
 });

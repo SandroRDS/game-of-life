@@ -1,27 +1,37 @@
+import type { Coordinate } from '@src/common/types/coordinate';
 import Cell from '../cell/cell.entity';
-import { cellularAutomatonOptionsSchema } from './cellularAutomaton.schemas';
-import type { CellularAutomatonOptions } from './cellularAutomaton.types';
+import { cellularAutomatonSizeSchema } from './cellularAutomaton.schemas';
+import type { CellularAutomatonSize } from './cellularAutomaton.types';
+import coordinateSchema from '@src/common/schemas/coordinate';
+import generateCoordinateKey from '@src/engine/utils/generateCoordinateKey';
 
 class CellularAutomaton {
-  private cells: Map<string, Cell> = new Map();
+  public size: CellularAutomatonSize;
+  private aliveCells: Map<string, Cell> = new Map();
 
-  constructor(options: CellularAutomatonOptions) {
-    const validatedOptions = cellularAutomatonOptionsSchema.parse(options);
+  constructor(size: CellularAutomatonSize) {
+    const validatedSize = cellularAutomatonSizeSchema.parse(size);
 
-    this.generateCells(validatedOptions.horizontalLength, validatedOptions.verticalLength);
+    this.size = validatedSize;
   }
 
-  private generateCells(horizontalLength: number, verticalLength: number) {
-    for (let horizontalIndex = 1; horizontalIndex <= horizontalLength; horizontalIndex++) {
-      for (let verticalIndex = 1; verticalIndex <= verticalLength; verticalIndex++) {
-        const coordinate = {
-          x: horizontalIndex,
-          y: verticalIndex,
-        };
+  public advanceToNextGeneration() {
 
-        this.cells.set(`${coordinate.x}:${coordinate.y}`, new Cell(coordinate));
-      }
-    }
+  }
+
+  public createCell(coordinate: Coordinate) {
+    const validatedCoordinate = coordinateSchema
+      .extend({
+        x: coordinateSchema.shape.x.lte(this.size.horizontal),
+        y: coordinateSchema.shape.x.lte(this.size.vertical),
+      })
+      .parse(coordinate);
+
+    this.aliveCells.set(generateCoordinateKey(validatedCoordinate), new Cell(validatedCoordinate));
+  }
+
+  public getAliveCellsCoordinates() {
+    return new Set<string>(this.aliveCells.keys());
   }
 }
 
